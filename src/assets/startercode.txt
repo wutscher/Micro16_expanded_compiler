@@ -1,0 +1,54 @@
+# Das ist der Compiler für das "Extended Instruction Set" von Mikro16
+# -------------------------------------------------------------------
+# Das "Extended Instruction Set" fügt folgende neue Features:
+#   +) Zahlen zuweisung
+#   +) Berechnungen
+#   +) 'if' bedinungen
+#   +) 'while' Schleifen
+
+# ----------------------
+# | Zahlen zuweisungen |
+# ----------------------
+
+R1 = 16
+R2 = 20
+
+# ----------------
+# | Berechnungen |
+# ----------------
+
+# Addition
+R2 = R2 + R2
+
+# Subtraktion
+R2 = R2 - 20
+
+# ------------------
+# | 'if' bedienung |
+# ------------------
+
+if R1 > 10 {
+    R1 = 19
+}
+
+# -----------------
+# | 'while' loops |
+# -----------------
+
+while R1 < R2 {
+    R1 <- R1 + 1
+}
+
+# oder
+
+while R1 >= 10 {
+    R1 = R1 - 2
+}
+
+# oder
+
+while R1 < 20 {
+    if R2 < 20 {
+        R1 = R1 + 2
+    }
+}

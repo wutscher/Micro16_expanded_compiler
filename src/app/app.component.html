@@ -1,5 +1,39 @@
-<textarea name="" id="" cols="90" rows="30" [(ngModel)]="text">sdasd</textarea>
+<div style="height: 100%; width: 98%; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; margin: 0 auto;">
+  <h1 style="text-align: center;">Micro16 extended instruction set compiler</h1>
+  <div style="display: flex; justify-content: space-between; height: 90%; align-items: center; width: 100%">
+  
+    <ngx-monaco-editor [options]="editorOptions" (onInit)="initEditor($event)" [(ngModel)]="text" style="width: 45%; height: 100%;"></ngx-monaco-editor>
+    
+    <div style="display: flex; flex-direction: column; justify-content: space-between; width: 7%;">
+      <button mat-flat-button color="primary" (click)="compile()"><mat-icon aria-hidden="false" aria-label="Example home icon">play_arrow</mat-icon></button>
+      <br/>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Freie Register</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <section style="display: flex; flex-direction: column">
+              <mat-checkbox [checked]="true" (change)="setRegister('R0', $event.checked)">R0</mat-checkbox>
+              <mat-checkbox [checked]="false" (change)="setRegister('R1', $event.checked)">R1</mat-checkbox>
+              <mat-checkbox [checked]="false" (change)="setRegister('R2', $event.checked)">R2</mat-checkbox>
+              <mat-checkbox [checked]="true" (change)="setRegister('R3', $event.checked)">R3</mat-checkbox>
+              <mat-checkbox [checked]="true" (change)="setRegister('R4', $event.checked)">R4</mat-checkbox>
+              <mat-checkbox [checked]="true" (change)="setRegister('R5', $event.checked)">R5</mat-checkbox>
+              <mat-checkbox [checked]="true" (change)="setRegister('R6', $event.checked)">R6</mat-checkbox>
+              <mat-checkbox [checked]="true" (change)="setRegister('R7', $event.checked)">R7</mat-checkbox>
+              <mat-checkbox [checked]="true" (change)="setRegister('R8', $event.checked)">R8</mat-checkbox>
+              <mat-checkbox [checked]="true" (change)="setRegister('R9', $event.checked)">R9</mat-checkbox>
+              <mat-checkbox [checked]="true" (change)="setRegister('R10', $event.checked)">R10</mat-checkbox>
+            </section>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-stroked-button color="basic" style="" (click)="showSyntax()"><mat-icon aria-hidden="false" aria-label="Example home icon">info</mat-icon> Syntax</button>
+        </mat-card-actions>
+      </mat-card>
 
-<textarea name="" id="" cols="90" rows="30" [(ngModel)]="output">sdasd</textarea>
+    </div>
+  
+    <ngx-monaco-editor [options]="editorOptions" (onInit)="initEditor($event)" [(ngModel)]="output" style="width: 45%; height: 100%;"></ngx-monaco-editor>
+  </div>
 
-<button (click)="parseText(text)">asdasdasd</button>
+</div>
