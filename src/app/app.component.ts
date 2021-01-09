@@ -12,16 +12,16 @@ export class AppComponent implements OnInit {
   title = 'Mikro16Compiler';
 
   defaultText: string;
-  text: string;
-  output: string;
-
-
 
   editorOptions = {
     automaticLayout: true,
     theme: 'Micro16Theme',
     language: 'Micro16',
   };
+
+  preCompile: string
+
+  postCompile: string
 
   freeRegisters = ['R0', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'R9', 'R10'];
 
@@ -32,11 +32,14 @@ export class AppComponent implements OnInit {
   constructor(private app: ApplicationRef, private http: HttpClient, public dialog: MatDialog) {}
 
   ngOnInit(): void {
+    this.preCompile = localStorage.getItem("code");
     this.http
       .get('assets/startercode.txt', { responseType: 'text' })
       .subscribe((data) => {
         this.defaultText = data;
-        this.text = data;
+        if(!this.preCompile){
+          this.preCompile = this.defaultText
+        }
         this.compile();
       });
   }
@@ -62,19 +65,15 @@ export class AppComponent implements OnInit {
 
   initEditor(editor) {
     editor.layout();
-    this.test();
-  }
-
-  test() {
-    setTimeout(() => {
-      window.dispatchEvent(new Event('resize'));
-    }, 100);
+    editor.onDidChangeModelContent(event=>{
+      localStorage.setItem("code", this.preCompile);
+    })
   }
 
   compile() {
     this.ifCount = 1;
     this.loopCounter = 1;
-    this.output = this.parseText(this.text);
+    this.postCompile = this.parseText(this.preCompile);
   }
 
   parseText(input: string) {
@@ -290,7 +289,6 @@ export class AppComponent implements OnInit {
         resultString += `${register} <- ${register}+1\n`;
       }
     }
-    this.output = resultString;
     return resultString;
   }
 

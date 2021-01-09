@@ -48,7 +48,7 @@ while R1 >= 10 {
 # oder
 
 while R1 < 20 {
-    if R2 < 20 {
+    if R2 < 50 {
         R1 = R1 + 2
     }
 }
