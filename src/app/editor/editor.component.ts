@@ -11,7 +11,7 @@ declare var monaco: any;
 export class EditorComponent implements OnInit, OnChanges {
 
   @Input()
-  content: string;
+  content?: string;
 
   @Output()
   contentChange = new EventEmitter<string>();
@@ -28,7 +28,7 @@ export class EditorComponent implements OnInit, OnChanges {
       }
     })
   }
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: any): void {
     if(this._editor){
       this._editor.getModel().setValue(changes.content.currentValue)
     }
@@ -38,20 +38,20 @@ export class EditorComponent implements OnInit, OnChanges {
   }
   
   public _editor: any;
-  @ViewChild('editorContainer', { static: false }) _editorContainer: ElementRef;
+  @ViewChild('editorContainer', { static: false }) _editorContainer?: ElementRef;
 
   private initMonaco(): void {
 
     console.log(this._editorContainer)
 
     this._editor = monaco.editor.create(
-      this._editorContainer.nativeElement,
+      this._editorContainer?.nativeElement,
       this.options
     );
 
     this._editor.getModel().setValue(this.content)
     
-    this._editor.getModel().onDidChangeContent((event) => {
+    this._editor.getModel().onDidChangeContent(() => {
       this.contentChange.emit(this._editor.getModel().getValue())
     });
 

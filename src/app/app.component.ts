@@ -11,7 +11,7 @@ import { SyntaxDialogComponent } from './syntax-dialog/syntax-dialog.component';
 export class AppComponent implements OnInit {
   title = 'Mikro16Compiler';
 
-  defaultText: string;
+  defaultText?: string;
 
   editorOptions = {
     automaticLayout: true,
@@ -19,9 +19,9 @@ export class AppComponent implements OnInit {
     language: 'Micro16',
   };
 
-  preCompile: string
+  preCompile: string = ""
 
-  postCompile: string
+  postCompile: string = ""
 
   freeRegisters = ['R0', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'R9', 'R10'];
 
@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
   constructor(private app: ApplicationRef, private http: HttpClient, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.preCompile = localStorage.getItem("code");
+    this.preCompile = <string> localStorage.getItem("code");
     this.http
       .get('assets/startercode.txt', { responseType: 'text' })
       .subscribe((data) => {
@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  setRegister(register, checked) {
+  setRegister(register: string, checked: boolean) {
     if(checked){
       this.freeRegisters.push(register)
     }else{
@@ -63,8 +63,8 @@ export class AppComponent implements OnInit {
 
   }
 
-  initEditor(editor) {
-    editor.onDidChangeContent(event=>{
+  initEditor(editor:any) {
+    editor.onDidChangeContent(()=>{
       localStorage.setItem("code", this.preCompile);
     })
   }
@@ -210,9 +210,9 @@ export class AppComponent implements OnInit {
     return resultString;
   }
 
-  calculate(registerLocation, register1, register2, operator): string {
+  calculate(registerLocation: string, register1: string, register2: string, operator: string): string {
     let resultString = '';
-    let tempRegister = this.freeRegisters.pop();
+    let tempRegister = <string> this.freeRegisters.pop();
 
     switch (operator) {
       case '+':
@@ -275,15 +275,15 @@ export class AppComponent implements OnInit {
 
     for (let i = 0; i < valueString.length; i++) {
       if (
-        valueString[i] == 0 &&
+        valueString[i] == '0' &&
         i < valueString.length - 1 &&
-        valueString[i + 1] == 0
+        valueString[i + 1] == '0'
       ) {
         resultString += `${register} <- lsh(${register} + ${register})\n`;
         i++;
-      } else if (valueString[i] == 0) {
+      } else if (valueString[i] == '0') {
         resultString += `${register} <- lsh(${register})\n`;
-      } else if (valueString[i] == 1) {
+      } else if (valueString[i] == '1') {
         resultString += `${register} <- lsh(${register})\n`;
         resultString += `${register} <- ${register}+1\n`;
       }
@@ -301,16 +301,14 @@ export class AppComponent implements OnInit {
 
     switch (operator) {
       case '<': {
-        let temp = register2;
-        register2 = register1;
-        register1 = temp;
+        return this.compare(register2, register1, '>', goto)
       }
       case '>': {
         let tempRegister = this.freeRegisters.pop();
         resultString += `${tempRegister} <- ~${register1}\n`;
         resultString += `${tempRegister} <- ${tempRegister} + 1\n`;
         resultString += `${register2} + ${tempRegister}; if N goto .${goto}\n`;
-        this.freeRegisters.push(tempRegister);
+        this.freeRegisters.push(<string> tempRegister);
         break;
       }
       case '==': {
@@ -318,7 +316,7 @@ export class AppComponent implements OnInit {
         resultString += `${tempRegister} <- ~${register1}\n`;
         resultString += `${tempRegister} <- ${tempRegister} + 1\n`;
         resultString += `${register2} + ${tempRegister}; if Z goto .${goto}\n`;
-        this.freeRegisters.push(tempRegister);
+        this.freeRegisters.push(<string> tempRegister);
         break;
       }
       case '<=': {
@@ -339,7 +337,7 @@ export class AppComponent implements OnInit {
         resultString += `${tempRegister} <- ~${register2}\n`;
         resultString += `${tempRegister} <- ${tempRegister} + 1\n`;
         resultString += `${register1} + ${tempRegister}; if N goto .${goto}\n`;
-        this.freeRegisters.push(tempRegister);
+        this.freeRegisters.push(<string> tempRegister);
         break;
       }
     }
@@ -402,7 +400,7 @@ export class AppComponent implements OnInit {
     };
   }
 
-  validateInput(input): { register: string; setup: string } {
+  validateInput(input: any): { register: string; setup: string } {
     let register: string;
     let setup: string;
 
@@ -410,7 +408,7 @@ export class AppComponent implements OnInit {
       register = input;
       setup = '';
     } else {
-      register = this.freeRegisters.pop();
+      register = <string> this.freeRegisters.pop();
       setup = this.assignValue(register, parseInt(input));
     }
 
@@ -435,7 +433,7 @@ export class AppComponent implements OnInit {
       case '!=':
         return '==';
       default:
-        return null;
+        return '';
     }
   }
 }

@@ -22,7 +22,7 @@ export class MonacoEditorService {
     });
   }
 
-  public load(finishLoading) {
+  public load(finishLoading: { (): void; (): void; }) {
     // load the assets
 
     const baseUrl = './assets' + '/monaco-editor/min/vs';
