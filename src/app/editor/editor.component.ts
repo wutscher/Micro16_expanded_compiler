@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MonacoEditorService } from '../shared/monaco-editor.service';
 
 declare var monaco: any;
@@ -8,7 +8,7 @@ declare var monaco: any;
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss']
 })
-export class EditorComponent implements OnInit, OnChanges {
+export class EditorComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input()
   content?: string;
@@ -22,11 +22,7 @@ export class EditorComponent implements OnInit, OnChanges {
   options = {theme: 'Micro16Theme', language: 'Micro16', automaticLayout: true};
 
   constructor(private monacoEditorService: MonacoEditorService){
-    this.monacoEditorService.ready.subscribe({
-      complete: ()=>{
-        this.initMonaco()
-      }
-    })
+    
   }
   ngOnChanges(changes: any): void {
     if(this._editor){
@@ -35,6 +31,14 @@ export class EditorComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(){
+    this.monacoEditorService.ready.subscribe({
+      complete: ()=>{
+        this.initMonaco()
+      }
+    })
   }
   
   public _editor: any;

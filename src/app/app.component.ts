@@ -46,7 +46,9 @@ export class AppComponent implements OnInit {
 
   showSyntax(): void {
     const dialogRef = this.dialog.open(SyntaxDialogComponent, {
-      data: {text: this.defaultText}
+      data: {text: this.defaultText},
+      width: "75vw",
+      height: "75vh"
     });
 
     dialogRef.afterClosed().subscribe(result => {
