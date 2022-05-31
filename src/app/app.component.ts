@@ -64,8 +64,7 @@ export class AppComponent implements OnInit {
   }
 
   initEditor(editor) {
-    editor.layout();
-    editor.onDidChangeModelContent(event=>{
+    editor.onDidChangeContent(event=>{
       localStorage.setItem("code", this.preCompile);
     })
   }

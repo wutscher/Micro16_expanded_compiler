@@ -1,6 +1,4 @@
-<ngx-monaco-editor
-[options]="editorOptions"
-(onInit)="initEditor($event)"
-[(ngModel)]="data.text"
-style="width: 75vw; height: 75vh"
-></ngx-monaco-editor>
+<input type="textbox" [(ngModel)]="data.text" style="width: 75vw; height: 75vh">
+<div>
+    <!-- <app-editor [(content)]="data.text" style="width: 75vw; height: 75vh"></app-editor> -->
+</div>

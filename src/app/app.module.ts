@@ -48,101 +48,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-
-import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor';
 import { SyntaxDialogComponent } from './syntax-dialog/syntax-dialog.component';
 
 declare const monaco: any;
 
-const monacoConfig: NgxMonacoEditorConfig = {
+const monacoConfig = {
   onMonacoLoad() {
     // Register a new language
-    monaco.languages.register({ id: 'Micro16' });
-
-    // Register a tokens provider for the language
-    monaco.languages.setMonarchTokensProvider('Micro16', {
-      tokenizer: {
-        root: [
-          [/R[0-9]+/, 'register'],
-          [/MBR/, 'register'],
-          [/MAR/, 'register'],
-          [/MIC/, 'register'],
-          [/MIR/, 'register'],
-          [/PC/, 'register'],
-          [/AC/, 'register'],
-          [/[0-9]+/, 'number'],
-          [/<-/, 'assign'],
-          [/while/, 'keyword'],
-          [/if/, 'keyword'],
-          [/#[\s\S]*/, "comment"]
-        ],
-      },
-    });
-
-    // Define a new theme that contains only rules that match this language
-    monaco.editor.defineTheme('Micro16Theme', {
-      base: 'vs-dark',
-      inherit: true,
-      rules: [
-        { token: 'register', foreground: '9CDCFE', fontStyle: 'bold' }
-      ]
-    });
-
-    // Register a completion item provider for the new language
-    monaco.languages.registerCompletionItemProvider('Micro16', {
-      provideCompletionItems: () => {
-        var suggestions = [
-          {
-            label: 'MBR',
-            kind: monaco.languages.CompletionItemKind.Text,
-            insertText: 'MBR',
-          },
-          {
-            label: 'MAR',
-            kind: monaco.languages.CompletionItemKind.Text,
-            insertText: 'MAR',
-          },
-          {
-            label: 'MIC',
-            kind: monaco.languages.CompletionItemKind.Text,
-            insertText: 'MIC',
-          },
-          {
-            label: 'MIR',
-            kind: monaco.languages.CompletionItemKind.Text,
-            insertText: 'MIR',
-          },
-          {
-            label: 'PC',
-            kind: monaco.languages.CompletionItemKind.Text,
-            insertText: 'PC',
-          },
-          {
-            label: 'AC',
-            kind: monaco.languages.CompletionItemKind.Text,
-            insertText: 'AC',
-          },
-          {
-            label: 'if',
-            kind: monaco.languages.CompletionItemKind.Snippet,
-            insertText: ['if ${1:condition} {', '\t$0', '}'].join('\n'),
-            insertTextRules:
-              monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
-            documentation: 'If Statement',
-          },
-          {
-            label: 'while',
-            kind: monaco.languages.CompletionItemKind.Snippet,
-            insertText: ['while ${1:condition} {', '\t$0', '}'].join('\n'),
-            insertTextRules:
-              monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
-            documentation: 'while loop',
-          },
-        ];
-        return { suggestions: suggestions };
-      },
-    });
-
+    
     // monaco.editor.create(document.getElementById('container'), {
     //   theme: 'Micro16Theme',
     //   value: getCode(),
@@ -157,9 +70,7 @@ const monacoConfig: NgxMonacoEditorConfig = {
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
-    MonacoEditorModule.forRoot(monacoConfig),
     HttpClientModule,
-    
     MatAutocompleteModule,
     MatCheckboxModule,
     MatDatepickerModule,

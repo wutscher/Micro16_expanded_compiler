@@ -19,9 +19,13 @@
       width: 100%;
     "
   >
-    <ngx-monaco-editor [options]="editorOptions" (onInit)="initEditor($event)" [(ngModel)]="preCompile" style="width: 40%; height: 100%"></ngx-monaco-editor>
+  <app-editor (onInit)="initEditor($event)" style="width: 40%; height: 100%" [(content)]="preCompile"></app-editor>
 
-    <ngx-monaco-editor [options]="editorOptions" (onInit)="initEditor($event)" [(ngModel)]="postCompile" style="width: 40%; height: 100%" ></ngx-monaco-editor>
+  <app-editor (onInit)="initEditor($event)" style="width: 40%; height: 100%" [(content)]="postCompile"></app-editor>
+
+    <!-- <ngx-monaco-editor [options]="editorOptions" (onInit)="initEditor($event)" [(ngModel)]="preCompile" style="width: 40%; height: 100%"></ngx-monaco-editor> -->
+
+    <!-- <ngx-monaco-editor [options]="editorOptions" (onInit)="initEditor($event)" [(ngModel)]="postCompile" style="width: 40%; height: 100%" ></ngx-monaco-editor> -->
 
     <mat-card style="width: 15%;">
       <mat-card-header>

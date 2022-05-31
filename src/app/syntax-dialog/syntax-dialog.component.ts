@@ -5,6 +5,7 @@ export interface DialogData {
   text: string;
 }
 
+
 @Component({
   selector: 'app-syntax-dialog',
   templateUrl: './syntax-dialog.component.html',
@@ -12,11 +13,6 @@ export interface DialogData {
 })
 export class SyntaxDialogComponent implements OnInit {
 
-  editorOptions = {
-    automaticLayout: true,
-    theme: 'Micro16Theme',
-    language: 'Micro16',
-  };
 
   constructor(public dialogRef: MatDialogRef<SyntaxDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
@@ -24,12 +20,7 @@ export class SyntaxDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  initEditor(editor) {
-    editor.layout();
-  }
-
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }

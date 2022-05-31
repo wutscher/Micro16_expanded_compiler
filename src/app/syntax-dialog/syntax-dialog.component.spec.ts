@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SyntaxDialogComponent } from './syntax-dialog.component';
 
@@ -6,12 +6,12 @@ describe('SyntaxDialogComponent', () => {
   let component: SyntaxDialogComponent;
   let fixture: ComponentFixture<SyntaxDialogComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ SyntaxDialogComponent ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SyntaxDialogComponent);
